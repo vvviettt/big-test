@@ -1,0 +1,24 @@
+version: '3.3'
+services:
+  mongodb:
+    image: mongo:latest
+    volumes:
+      - data-volume:/data/db
+    restart: always
+    ports:
+      - ${DATABASE_PORT}:27017
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${DATABASE_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${DATABASE_PASSWORD}
+    networks:
+      - webnet
+  redis:
+    image: redis:5
+    ports:
+      - ${REDIS_PORT}:6379
+    networks:
+      - webnet
+networks:
+  webnet:
+volumes:
+  data-volume:
