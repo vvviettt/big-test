@@ -14,6 +14,7 @@ export const loginService = (
         password,
         rememberMe,
       });
+
       resolve(res.data);
     } catch (error) {
       reject((error as AxiosError).response?.data);

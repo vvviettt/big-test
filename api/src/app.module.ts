@@ -1,3 +1,6 @@
+import { ChatGateway } from './chat/chat.gateway';
+import { ChatModule } from './chat/chat.module';
+import { PostModule } from './posts/post.module';
 import { MailModule } from './mail/mail.module';
 import { UserModule } from './user/user.module';
 import { env } from './config/env.config';
@@ -12,6 +15,8 @@ const environment = process.env.NODE_ENV || 'development';
 
 @Module({
     imports: [
+        ChatModule,
+        PostModule,
         ConfigModule.forRoot({
             envFilePath: `.env.${environment}`,
             isGlobal: true
@@ -24,6 +29,6 @@ const environment = process.env.NODE_ENV || 'development';
         UserModule
     ],
     controllers: [AppController],
-    providers: [AppService]
+    providers: [ChatGateway, AppService]
 })
 export class AppModule {}

@@ -29,6 +29,11 @@ export const env = {
         JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
         JWT_REFRESH_EXPIRE: process.env.JWT_REFRESH_EXPIRE || '7d'
     },
+    IMAGEKIT: {
+        IMAGEKIT_PUBLIC_KEY: process.env.IMAGEKIT_PUBLIC_KEY,
+        IMAGEKIT_PRIVATE_KEY: process.env.IMAGEKIT_PRIVATE_KEY,
+        IMAGEKIT_URL_ENDPOINT: process.env.IMAGEKIT_URL_ENDPOINT
+    },
     SALT_ROUND: 10,
     WHITELIST_DOMAINS: (process.env.WHITELIST_DOMAINS || 'localhost').split(',')
 };

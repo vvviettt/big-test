@@ -1,6 +1,6 @@
 import { MailService } from './../../mail/services/mail.service';
 import { env } from './../../config/env.config';
-import { AuthRepository } from './../respository/auth.repository';
+import { UserRepository } from '../respository/user.repository';
 import * as bcrypt from 'bcrypt';
 import { CACHE_MANAGER, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Cache } from 'cache-manager';
@@ -11,7 +11,7 @@ import { log } from 'console';
 @Injectable()
 export class AuthService {
     constructor(
-        private readonly authRepository: AuthRepository,
+        private readonly authRepository: UserRepository,
         @Inject(CACHE_MANAGER) private cache: Cache,
         private jwtService: JwtService,
         private mailService: MailService

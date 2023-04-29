@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UserInformation } from "./interfaces/UserInformation.interface";
-import { StatusFetch } from "../../../enums/StatusFetch.enum";
+import { StatusFetch } from "../../enums/StatusFetch.enum";
 
 interface UserState {
   user: UserInformation | undefined;

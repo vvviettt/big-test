@@ -12,7 +12,6 @@ import {ConstantVariable} from '../../../config/constant';
 import {Colors} from '../../../config/colors';
 import {useAppDispatch, useAppSelector} from '../../../redux/store';
 import {login} from '../../../redux/user/auth.slice';
-import Spinner from 'react-native-loading-spinner-overlay/lib';
 import OverlayLoading from '../../../components/OverlayLoading/OverlayLoading';
 import {FetchStatus} from '../../../enum/FetchStatus.enum';
 
@@ -45,10 +44,11 @@ const LoginForm = () => {
   const onSubmit = handleSubmit(data => {
     dispatch(login(data as LoginFormState));
   });
+
   return (
     <View>
       <OverlayLoading
-        isActive={loginFetchStatus == FetchStatus.SUBMIT_LOADING}
+        isActive={loginFetchStatus === FetchStatus.SUBMIT_LOADING}
       />
       <Text style={styles.title}>Đăng nhập</Text>
       <BasicInput control={control} name="email" placeholder="Email" />

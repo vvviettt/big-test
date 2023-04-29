@@ -5,7 +5,6 @@ import {loginService} from '../../services/user';
 import {LoginFormState} from '../../screens/auth/LoginScreen/LoginForm';
 import {LoginResponse} from '../../services/user/interfaces/LoginResponse.interface';
 import {FetchError} from '../../interfaces/FetchError.interface';
-import {fetchUserInformation} from './user.slice';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
 
 interface AuthState {
@@ -25,12 +24,9 @@ export const login = createAsyncThunk<
   LoginResponse,
   LoginFormState,
   {rejectValue: FetchError}
->('auth/login', async ({email, password}, {rejectWithValue, dispatch}) => {
+>('auth/login', async ({email, password}, {rejectWithValue}) => {
   try {
     const res = await loginService(email, password, true);
-    dispatch(fetchUserInformation(res.accessToken));
-    console.log(res);
-
     return res;
   } catch (error) {
     return rejectWithValue(error as FetchError);
@@ -41,13 +37,16 @@ const authSlice = createSlice<AuthState, any>({
   name: 'user/auth',
   initialState,
   reducers: {
-    logout(state: AuthState) {
+    logout: (state: AuthState) => {
+      console.log('logged out');
       state.isLoggedIn = false;
+      state.accessToken = undefined;
     },
   },
   extraReducers: builder => {
     builder.addCase(login.pending, state => {
       state.loginFetchStatus = FetchStatus.SUBMIT_LOADING;
+      console.log('ok');
     });
     builder.addCase(login.rejected, (state, {payload}) => {
       state.loginFetchStatus = FetchStatus.SUBMIT_FAIL;

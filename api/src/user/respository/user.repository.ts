@@ -1,10 +1,10 @@
-import { ValidateException } from './../../core/validate/validate.exception';
-import { UserDocument, User } from './../schema/user.schema';
+import { ValidateException } from '../../core/validate/validate.exception';
+import { UserDocument, User } from '../schema/user.schema';
 import { Injectable, BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 @Injectable()
-export class AuthRepository {
+export class UserRepository {
     constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
     async getUsersWithEmail(email: string) {
@@ -21,5 +21,16 @@ export class AuthRepository {
         else {
             throw new HttpException('Email đã được đăng ký ở một tài khoản khác.', HttpStatus.CONFLICT);
         }
+    }
+
+    async getUserWithId(id: string) {
+        const user = await this.userModel.findById(id);
+        return {
+            id: user.id,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            avatarUrl: user.avatar
+        };
     }
 }

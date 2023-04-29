@@ -6,6 +6,7 @@ import {
 } from '@reduxjs/toolkit';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {userReducer} from './user/user.slice';
+import {chatReducer} from './chat/chat.slice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   persistReducer,
@@ -17,6 +18,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+import {postReducer} from './post/postSlice';
 
 const persistConfig = {
   key: 'root',
@@ -27,17 +29,21 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userReducer,
   auth: authReducer,
+  chat: chatReducer,
+  post: postReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
+    serializableCheck: false,
   }),
 });
+
+export const getToken = () => {
+  return store.getState().auth.accessToken;
+};
 
 type RootState = ReturnType<typeof store.getState>;
 export const useAppDispatch = () => useDispatch<typeof store.dispatch>();
