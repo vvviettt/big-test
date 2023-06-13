@@ -1,14 +1,24 @@
 import classNames from "classnames";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { useCallback } from "react";
 import { changePostType } from "../../redux/post/postSlice";
 import AddPostForm from "../../components/AddPostForm";
+import PostItem from "../../components/PostItem";
 
 const HomePage: React.FC = () => {
   return (
     <>
       <HomeTab />
       <AddPostForm />
+      {/* <PostItem
+        like={[]}
+        comments={[]}
+        commentCount={0}
+        userId="pppp"
+        userName="Elon Musk"
+        postId={"akjdakbv"}
+        postAt={new Date(2023, 4, 4, 14, 0, 0, 0)}
+        postContent={`Major software upgrades underway across the board.\nEncrypted DMs & other DM upgrades rolling out this week.`}
+      /> */}
     </>
   );
 };

@@ -1,10 +1,10 @@
-import {Dimensions, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import React, {useEffect} from 'react';
-import Lottie from 'lottie-react-native';
 import splash from '../../assets/json/splash.json';
-import {useAppDispatch, useAppSelector} from '../../redux/store';
+
 import {useNavigation} from '@react-navigation/native';
-import {getUerInformation} from '../../redux/user/user.slice';
+import {useAppDispatch, useAppSelector} from '../../redux/store';
+import {getUserInfo} from '../../redux/user/userSlice';
 
 const SplashScreen = () => {
   const {user} = useAppSelector(state => state.user);
@@ -12,7 +12,7 @@ const SplashScreen = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (!user) {
-      dispatch(getUerInformation());
+      dispatch(getUserInfo());
     }
   }, []);
   useEffect(() => {
@@ -29,7 +29,7 @@ const SplashScreen = () => {
           width: '100%',
           height: '100%',
         }}>
-        <Lottie
+        {/* <Lottie
           style={{
             width: 800,
             height: 400,
@@ -37,12 +37,10 @@ const SplashScreen = () => {
           source={splash}
           autoPlay
           loop
-        />
+        /> */}
       </View>
     </SafeAreaView>
   );
 };
 
 export default SplashScreen;
-
-const styles = StyleSheet.create({});

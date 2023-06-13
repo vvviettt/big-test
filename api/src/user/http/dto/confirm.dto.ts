@@ -6,4 +6,9 @@ export class ConfirmDto {
     @IsNotEmpty()
     @ApiProperty()
     code: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty()
+    token: string;
 }

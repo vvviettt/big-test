@@ -33,7 +33,7 @@ const BasicInput: React.FC<BasicButtonProps> = ({
       <Controller
         name={name}
         rules={rules}
-        control={control}
+        control={control ?? undefined}
         render={({field: {onBlur, onChange, value}, fieldState: {error}}) => (
           <View style={styles.inputWrapper}>
             <View style={styles.inputContainer}>

@@ -24,9 +24,9 @@ export class MediaStorageService {
         log('ok');
     }
 
-    saveFiles(files: any[]) {
+    async saveFiles(files: any[]) {
         const images = [];
-        files.forEach(async (file) => {
+        for (const file of files) {
             try {
                 const { buffer } = file;
                 const fileName = uuidv4();
@@ -34,9 +34,9 @@ export class MediaStorageService {
                     file: buffer,
                     fileName
                 });
-                images.push(res.filePath);
+                images.push(res.url);
             } catch (e) {}
-        });
+        }
         return images;
     }
 }

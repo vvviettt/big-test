@@ -1,7 +1,7 @@
 import { ApiBody } from '@nestjs/swagger';
 
 export const ApiMultiFile =
-    (fileName: string = 'files'): MethodDecorator =>
+    (fileName = 'files'): MethodDecorator =>
     (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
         ApiBody({
             type: 'multipart/form-data',
@@ -17,7 +17,7 @@ export const ApiMultiFile =
                         }
                     },
                     content: { type: 'string' },
-                    surveyTitle: { type: 'string' },
+                    surveyTime: { type: 'number' },
                     mode: { type: 'number' },
                     surveyOption: { type: 'array', items: { type: 'string' } }
                 }

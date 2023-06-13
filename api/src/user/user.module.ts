@@ -4,13 +4,18 @@ import { AuthService } from './service/auth.service';
 import { env } from './../config/env.config';
 import { User, UserSchema } from './schema/user.schema';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { UserRepository } from './respository/user.repository';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './http/controller/auth.controller';
+import { PostModule } from 'src/posts/post.module';
+import { NestjsFormDataModule } from 'nestjs-form-data';
+import { MediaStorageService } from 'src/mediaStorage/media_storage.service';
 
 @Module({
     imports: [
+        NestjsFormDataModule,
+        forwardRef(() => PostModule),
         MongooseModule.forFeature([
             {
                 name: User.name,
@@ -26,6 +31,7 @@ import { AuthController } from './http/controller/auth.controller';
         })
     ],
     controllers: [UserController, AuthController],
-    providers: [UserService, UserRepository, AuthService]
+    providers: [UserService, UserRepository, AuthService, MediaStorageService],
+    exports: [UserRepository]
 })
 export class UserModule {}

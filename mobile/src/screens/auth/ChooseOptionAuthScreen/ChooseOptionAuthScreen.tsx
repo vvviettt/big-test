@@ -1,7 +1,5 @@
 import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
-import GoogleIcon from '../../../assets/svg/google.svg';
 import BasicButton from '../../../components/button/BasicButton';
-import OrLine from '../../../components/OrLine/OrLine';
 import {useNavigation} from '@react-navigation/native';
 import {Colors} from '../../../config/colors';
 
@@ -10,27 +8,20 @@ const ChooseOptionAuthScreen: React.FC = () => {
   return (
     <SafeAreaView style={{backgroundColor: '#ffffff', flex: 1}}>
       <View style={styles.wrapper}>
-        <View style={styles.topView}></View>
         <View style={styles.centerView}>
           <Text style={styles.title}>
             Xem điều gì đang diễn ra xung quanh cuộc sống của bạn.
           </Text>
         </View>
+        <BasicButton
+          label={'Tạo tài khoản'}
+          bgColor="#000"
+          textColor="#fff"
+          onTap={() => {
+            navigation.navigate('register' as never);
+          }}
+        />
         <View style={styles.bottomView}>
-          <BasicButton
-            label={'Tiếp tục với google'}
-            icon={<GoogleIcon width={24} height={24} />}
-            onTap={() => {}}
-          />
-          <OrLine />
-          <BasicButton
-            label={'Tạo tài khoản'}
-            bgColor="#000"
-            textColor="#fff"
-            onTap={() => {
-              navigation.navigate('register' as never);
-            }}
-          />
           <Text style={{...styles.text, ...styles.textPolicy}}>
             Bằng cách đăng ký, bạn đồng ý với{' '}
             <Text style={styles.textHighlight}>
@@ -59,7 +50,7 @@ export default ChooseOptionAuthScreen;
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignContent: 'center',
     paddingHorizontal: 30,
   },
@@ -76,7 +67,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   bottomView: {
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   text: {
     fontSize: 14,

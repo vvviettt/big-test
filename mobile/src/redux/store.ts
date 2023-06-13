@@ -1,52 +1,36 @@
-import {authReducer} from './user/auth.slice';
-import {
-  combineReducers,
-  configureStore,
-  getDefaultMiddleware,
-} from '@reduxjs/toolkit';
+import {persistReducer} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import {userReducer} from './user/userSlice';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
-import {userReducer} from './user/user.slice';
-import {chatReducer} from './chat/chat.slice';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  persistReducer,
-  persistStore,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from 'redux-persist';
+import persistStore from 'redux-persist/es/persistStore';
 import {postReducer} from './post/postSlice';
+import {stateReducer} from './state/stateSlice';
 
 const persistConfig = {
   key: 'root',
-  storage: AsyncStorage,
-  whitelist: ['auth'],
+  storage: storage,
+  whitelist: ['user'],
 };
 
 const rootReducer = combineReducers({
+  globalState: stateReducer,
   user: userReducer,
-  auth: authReducer,
-  chat: chatReducer,
   post: postReducer,
 });
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: getDefaultMiddleware({
-    serializableCheck: false,
-  }),
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
-
-export const getToken = () => {
-  return store.getState().auth.accessToken;
-};
-
-type RootState = ReturnType<typeof store.getState>;
+export const persistor = persistStore(store);
+export type RootState = ReturnType<typeof store.getState>;
 export const useAppDispatch = () => useDispatch<typeof store.dispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-export const persistor = persistStore(store);
+
 export default store;

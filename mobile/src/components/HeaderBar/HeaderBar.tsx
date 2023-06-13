@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {useAppSelector} from '../../redux/store';
 import FastImage from 'react-native-fast-image';
@@ -10,11 +10,12 @@ interface HeaderBarProps {
 
 const HeaderBar: React.FC<HeaderBarProps> = ({children, optionComponent}) => {
   const {user} = useAppSelector(state => state.user);
+  console.log(user?.avatarUrl);
 
   return (
     <View style={styles.wrapper}>
       <TouchableOpacity activeOpacity={1}>
-        <FastImage
+        {/* <FastImage
           style={styles.avatarImage}
           source={{
             uri: user?.avatarUrl,
@@ -22,7 +23,8 @@ const HeaderBar: React.FC<HeaderBarProps> = ({children, optionComponent}) => {
           }}
           resizeMode={FastImage.resizeMode.contain}
           defaultSource={require('../../assets/images/default_user_avatar.jpg')}
-        />
+        /> */}
+        <Image style={styles.avatarImage} source={{uri: user?.avatarUrl}} />
       </TouchableOpacity>
       <View style={styles.labelWrapper}>{children}</View>
       <View style={styles.option}>{optionComponent && optionComponent}</View>
@@ -50,6 +52,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   labelWrapper: {
+    paddingLeft: 20,
     flex: 1,
   },
   option: {

@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-let isTest = process.env.NODE_ENV === 'test';
+const isTest = process.env.NODE_ENV === 'test';
 dotenv.config();
 
 export const env = {

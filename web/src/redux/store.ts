@@ -1,10 +1,11 @@
-import { PersistConfig, persistReducer } from "redux-persist";
+import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { userReducer } from "./user/userSlice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import persistStore from "redux-persist/es/persistStore";
 import { postReducer } from "./post/postSlice";
+import { stateReducer } from "./state/stateSlice";
 
 const persistConfig = {
   key: "root",
@@ -13,6 +14,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+  globalState: stateReducer,
   user: userReducer,
   post: postReducer,
 });

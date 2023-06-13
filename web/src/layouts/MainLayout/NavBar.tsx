@@ -21,7 +21,7 @@ interface NavItem {
 }
 
 const NavBar: React.FC = () => {
-  const [navItems] = useState<NavItem[]>([
+  const [loggedInNavItems] = useState<NavItem[]>([
     {
       label: "Trang chủ ",
       path: "",
@@ -53,16 +53,16 @@ const NavBar: React.FC = () => {
       activeIcon: <ProfileIconActive />,
     },
   ]);
-  const [loggedInNavItems] = useState<NavItem[]>([
-    {
-      label: "Trang chủ ",
-      path: "",
-      icon: <HomeIcon />,
-      activeIcon: <HomeIconActive />,
-    },
+  const [navItems] = useState<NavItem[]>([
+    // {
+    //   label: "Trang chủ ",
+    //   path: "",
+    //   icon: <HomeIcon />,
+    //   activeIcon: <HomeIconActive />,
+    // },
     {
       label: "Khám phá ",
-      path: "explore",
+      path: "",
       icon: <ExploreIcon />,
       activeIcon: <ExploreIconActive />,
     },

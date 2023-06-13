@@ -1,14 +1,15 @@
 import defaultAvatar from "../../assets/images/default_user_avatar.jpg";
 interface AvatarProps {
-  id: string;
+  id?: string;
   avatarUrl?: string;
   size?: number;
 }
 
 const Avatar: React.FC<AvatarProps> = ({ id, avatarUrl, size }) => {
   return (
-    <div className="rounded-full overflow-hidden inline-block">
+    <div className="rounded-full overflow-hidden inline-block aspect-square">
       <img
+        className="aspect-square"
         src={avatarUrl ?? defaultAvatar}
         alt=""
         width={size ?? 20}

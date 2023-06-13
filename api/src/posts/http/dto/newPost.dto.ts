@@ -1,6 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsArray, IsNotEmpty, IsNumber, IsString, Max, MaxLength, Min, ValidateIf } from 'class-validator';
-import { log } from 'console';
+import { IsArray, IsNotEmpty, IsNumber, Max, MaxLength, Min, ValidateIf } from 'class-validator';
 
 export class NewPostDto {
     @IsNotEmpty()
@@ -16,15 +15,13 @@ export class NewPostDto {
     @IsArray()
     @ValidateIf((object, value) => value !== undefined)
     surveyOption: string[] | undefined;
-
-    @ValidateIf((object, value) => {
-        return value !== undefined;
+    @Transform(({ value }) => {
+        return parseInt(value);
     })
-    @IsString()
-    surveyTitle: string | undefined;
+    @IsNumber()
+    surveyTime: number;
 
     @Transform(({ value }) => {
-        log(value);
         return Number.parseInt(value ?? 0);
     })
     @Min(0)

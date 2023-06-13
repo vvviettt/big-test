@@ -6,7 +6,7 @@ import { CACHE_MANAGER, HttpException, HttpStatus, Inject, Injectable } from '@n
 import { Cache } from 'cache-manager';
 import { JwtService } from '@nestjs/jwt';
 import { NewUserInCache } from '../interfaces/new-user-in-cache.interface';
-import { log } from 'console';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class AuthService {
@@ -46,30 +46,29 @@ export class AuthService {
         //Generate code to sign up
         const code = (Math.floor(Math.random() * 90000) + 10000).toString();
         //Generate token
-        const jwtSignUp = await this.jwtService.sign(
-            {},
-            { secret: env.JWT.JWT_SIGN_UP_SECRET, expiresIn: env.JWT.JWT_SIGN_UP_EXPIRE }
-        );
+        const uuid = randomUUID();
         //Save data to  cache
-        this.cache.set(jwtSignUp, { code, email, firstName, lastName, dateOfBirth, password }, 60000);
+        this.cache.set(uuid, { code, email, firstName, lastName, dateOfBirth, password }, 60000);
         //Send code to user
         this.mailService.sendUserConfirmCode(email, code.toString());
         return {
             status: 1,
             message: 'Mã xác nhận đã được gửi về email của bạn.',
-            token: jwtSignUp
+            token: uuid
         };
     }
 
     async confirmSignupService(userCode: string, token: string) {
         const user = await this.cache.get<NewUserInCache>(token);
+        console.log(user);
+
         if (user) {
             const { code, firstName, lastName, email, password, dateOfBirth } = user;
             if (code === userCode) {
                 const hashedPassword = await bcrypt.hash(password, env.SALT_ROUND);
                 this.authRepository.saveNewUser(email, firstName, lastName, hashedPassword, dateOfBirth);
                 return {
-                    message: 'Đăng ký thành công.'
+                    message: 'Đăng ký thành công. o'
                 };
             } else {
                 throw new HttpException('Mã xác nhận không chính xác', HttpStatus.BAD_REQUEST);

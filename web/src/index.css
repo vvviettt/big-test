@@ -11,10 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-/* 
+
 * {
-  color: #0f1419;
-} */
+  box-sizing: border-box;
+}
 
 @tailwind base;
 @tailwind components;

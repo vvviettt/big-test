@@ -26,7 +26,6 @@ import CloseIcon from '../../assets/svg/close.svg';
 import {useAppDispatch, useAppSelector} from '../../redux/store';
 import FastImage from 'react-native-fast-image';
 import {launchImageLibrary} from 'react-native-image-picker';
-import Carousel from 'react-native-reanimated-carousel';
 import {useNavigation} from '@react-navigation/native';
 import {submitNewPost} from '../../redux/post/postSlice';
 import {NewPostFormData} from '../../redux/post/interfaces/NewPostFormData';

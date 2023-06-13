@@ -4,6 +4,7 @@ import {
   StyleSheet,
   ViewStyle,
   TouchableOpacity,
+  TextStyle,
 } from 'react-native';
 
 interface BasicButtonProps {
@@ -11,6 +12,7 @@ interface BasicButtonProps {
   icon?: JSX.Element;
   onTap: Function;
   wrapperStyle?: ViewStyle;
+  labelStyle?: TextStyle;
   textColor?: string;
   bgColor?: string;
   borderColor?: string;
@@ -23,13 +25,16 @@ const BasicButton: React.FC<BasicButtonProps> = ({
   wrapperStyle,
   textColor,
   bgColor,
+  labelStyle,
 }) => {
   return (
     <View style={wrapperStyle ?? styles.wrapperStyle}>
       <TouchableOpacity onPress={() => onTap()} activeOpacity={1}>
         <View style={{...styles.contentView, backgroundColor: bgColor}}>
           {icon}
-          <Text style={{...styles.contentText, color: textColor}}>{label}</Text>
+          <Text style={labelStyle ?? {...styles.contentText, color: textColor}}>
+            {label}
+          </Text>
         </View>
       </TouchableOpacity>
     </View>

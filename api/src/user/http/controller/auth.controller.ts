@@ -24,9 +24,7 @@ export class AuthController {
     }
 
     @Post('/confirm-signup')
-    @ApiBearerAuth()
-    async confirmSignUp(@Body() { code }: ConfirmDto, @Request() request) {
-        const token = ExtractJwt.fromAuthHeaderAsBearerToken()(request);
+    async confirmSignUp(@Body() { code, token }: ConfirmDto) {
         return await this.authService.confirmSignupService(code, token);
     }
 }
